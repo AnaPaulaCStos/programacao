@@ -1,0 +1,100 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Evento {
+    private String titulo;
+    private String data;
+    private String hora;
+    private String lembrete;
+
+    public Evento(String titulo, String data, String hora, String lembrete) {
+        this.titulo = titulo;
+        this.data = data;
+        this.hora = hora;
+        this.lembrete = lembrete;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public String getLembrete() {
+        return lembrete;
+    }
+
+    public String toString() {
+        return "Título: " + titulo + ", Data: " + data + ", Hora: " + hora + ", Lembrete: " + lembrete;
+    }
+}
+
+public class Agenda {
+    private ArrayList<Evento> eventos;
+
+    public Agenda() {
+        eventos = new ArrayList<>();
+    }
+
+    public void adicionarEvento(String titulo, String data, String hora, String lembrete) {
+        Evento evento = new Evento(titulo, data, hora, lembrete);
+        eventos.add(evento);
+        System.out.println("Evento adicionado com sucesso!");
+    }
+
+    public void listarEventos() {
+        if (eventos.isEmpty()) {
+            System.out.println("A agenda está vazia.");
+        } else {
+            System.out.println("Eventos na agenda:");
+            for (Evento evento : eventos) {
+                System.out.println(evento);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Agenda agenda = new Agenda();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nEscolha uma opção:");
+            System.out.println("1 - Adicionar evento");
+            System.out.println("2 - Listar eventos");
+            System.out.println("0 - Sair");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o título do evento:");
+                    String titulo = scanner.nextLine();
+                    System.out.println("Digite a data do evento (dd/mm/aaaa):");
+                    String data = scanner.nextLine();
+                    System.out.println("Digite a hora do evento (hh:mm):");
+                    String hora = scanner.nextLine();
+                    System.out.println("Digite o lembrete do evento:");
+                    String lembrete = scanner.nextLine();
+                    agenda.adicionarEvento(titulo, data, hora, lembrete);
+                    break;
+                case 2:
+                    agenda.listarEventos();
+                    break;
+                case 0:
+                    System.out.println("Encerrando a agenda.");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+}
